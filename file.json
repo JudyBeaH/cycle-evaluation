@@ -1,0 +1,1 @@
+{"interface": "Verification", "node": "\u4e2d\u95f4\u7ed3\u679c\u53ef\u89c6\u5316", "output_param": {"FGSM": {"name": "FGSM", "eps": [0.01, 0.02, 0.04, 0.06, 0.08, 0.1], "rates": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}, "LiRPA": {"name": "LiRPA", "eps": [0.01, 0.02, 0.04, 0.06, 0.08, 0.1], "rates": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}}}

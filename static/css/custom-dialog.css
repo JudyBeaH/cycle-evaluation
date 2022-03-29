@@ -1,0 +1,98 @@
+.popup-container {
+    position: relative;
+    width: 80%;
+    height: 90vh;
+    margin: 20px auto;
+}
+.mfp-close {
+    color: white !important;
+    margin-top: 4px;
+    margin-right: 2px;
+}
+.popup-content {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow-y: scroll;
+}
+.popup-content::-webkit-scrollbar {
+    display:none
+}
+.popup-container > .popup-background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    pointer-events: none;
+}
+.popup-container > .popup-content-wrapper{
+    position: absolute;
+    left:8px;
+    right:8px;
+    top:8px;
+    bottom: 8px;
+    background: rgba(0,0,0,0.45)
+}
+.popup-container > .popup-content-wrapper > .popup-content-container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.chart-container {
+    height: calc(60% - 2%);
+    width: calc(100% - 24px);
+    position: relative;
+    display: flex;
+    padding-bottom: 2%;
+    margin: 4% 12px 2% 12px;
+    border-bottom: solid 1px skyblue;
+}
+.chart-container:last-of-type{
+    border-bottom: none;
+}
+.chart-container .chart{
+    position: relative;
+    flex:2;
+    margin-left: 24px;
+}
+.chart-container .text{
+    margin-left: 36px;
+    color: white;
+    flex: 1;
+    font-size: 16px;
+}
+.chart-container .description-title{
+    font-size: 24px;
+    text-align: left;
+    margin-top: 0;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+}
+.chart-container .description-subtitle{
+    font-size: 20px;
+}
+.chart-container .description-detail{
+    margin-top: 24px;
+}
+.chart-container .description-detail>p{
+    margin-bottom: 24px;
+}
+.chart-container .description-detail li{
+    margin-bottom: 16px;
+}
+.chart-container .description-detail li .icon{
+    margin-right: 4px;
+    margin-bottom: 3px;
+}
+.chart-container .chart-instance{
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    position: absolute;
+}
+.icon{
+    height: 20px;
+    width: 20px;
+}

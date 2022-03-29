@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>数据收集阶段</title>
+<link rel="stylesheet" href="../static/css/public.css">
+<link rel="stylesheet" href="../static/css/hd1.css">
+<link rel="stylesheet" href="../static/css/reset.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="../static/css/custom-dialog.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup/dist/magnific-popup.css">
+
+<style>
+    img {
+        pointer-events: none;
+    }
+
+    .filebtn1 {
+        color: white;
+        border: #e9e618 3px solid;
+        background-color: transparent;
+        padding: 5% 15%;
+        border-radius: 100%;
+    }
+
+    .filebtn1:hover {
+        color: black;
+        border: #1f9ce9 3px solid;
+        background-color: #aadffdd5;
+    }
+
+    .gzdiv {
+        display: inline-block;
+        margin-left: 5.5%;
+    }
+
+    .startBtn {
+        display: inline-block;
+        height: 7%;
+        width: 15%;
+        margin-left: 18%;
+        margin-top: 5%;
+        position: absolute;
+        font-size: medium;
+    }
+</style>
+</head>
+
+<body>
+    <div class="pltheader pltscrollTop">
+        <h1 class="pltlogo">
+            <p>数据收集阶段</p>
+        </h1>
+        <div class="plth-inner">
+            <div class="pltnav">
+
+                <ul class="pltnav-ul">
+                    <li class="pltnav-item"><a href="http://10.15.201.88:14115/">首页</a>
+                    </li>
+                    <li class="pltnav-item"><a href="">AI软硬件协同安全攻防测试</a>
+                        <ul class="plter">
+                            <li><a href="http://10.15.201.88:14115/get_adv_input">对抗样本测试</a></li>
+                            <li><a href="http://10.15.201.88:14115/get_gnn_input">GNN测试</a></li>
+                        </ul>
+                    </li>
+                    <li class="pltnav-item"><a href="" class="pltactive">AI软硬件协同安全性能验证</a>
+                        <ul class="plter">
+                            <li><a href="{{url_for('side')}}">侧信道分析</a></li>
+                            <li><a href="{{url_for('inject')}}" class="pltactive">故障注入</a></li>
+                            <li><a href="{{url_for('robust')}}">鲁棒性形式化验证</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="particles-js" class="main" style="margin-top: 54px;">
+        <div class="main_con">
+            <div class="main_top" style="margin-bottom: 50px;">
+                <div class="main_top_middle" style="margin-left:18%;">
+                    <div class="main_top_middle_top_title">
+                        <img class="title_bg" src="../static/images/title_bg.png" style="height: 800%;">
+                        全周期安全评估平台
+                    </div>
+                </div>
+            </div>
+            
+            <div class="main_bottom">
+                <div style="width: 69%;height: 20%; position: relative; float: left;">
+                    <img src="../static/images/main_top_bottom.png"
+                        style="position: absolute;height: 100%; width: 100%;">
+                    <div class="main_top_echarts_con_title" style="margin-left: 3%;">数据收集阶段</div>
+                    <div style="padding: 2% 3%;color: aliceblue;font-size: medium;">
+                    数据收集阶段指的是在将数据送入模型之前对数据进行采集与预处理的时期，这一阶段通常涉及到异常数据检测、数据清洗等任务，为下一阶段提供可用的清洁数据集。我们在这一阶段主要进行异常数据检测与数据完整性评估。
+                    </div>
+                </div>
+                <!-- 数据比重部分： -->
+                <!-- 饼图进行展示不同标签样本在整体数据集中的占比 -->
+                <div style="width: 30%;height: 50%; position: relative;float: right;margin-top: 0%;">
+                    <img src="../static/images/main_top_bottom.png"
+                        style="position: absolute;height: 100%; width: 100%;">
+                    <div class="main_top_echarts_con_title" id="popResult">数据比重</div>
+                    <div id = 'main' style="width: 99%;height:95%"></div>
+                </div>
+
+                <div style="width: 70%;height: 80%; position: relative; float: left;">
+                    <img src="../static/images/main_top_bottom.png"
+                        style="position: absolute;height: 100%; width: 100%;">
+                    <!-- 输入选项部分 -->
+                    <div
+                        style="width: 40%;height: 30%; position: relative; float: left; margin-left: 1.3%;margin-top: 1%;">
+                        <img src="../static/images/main_top_bottom.png"
+                            style="position: absolute;height: 100%; width: 100%;">
+                        <div class="main_top_echarts_con_title">输入选项</div>
+                        <div class="inputDiv uploadDiv">
+                            <div class="gzdiv">
+                                <h4>数据集</h4>
+                                <select name="" class="form-control" id="dataset">
+                                    <option value="" disabled selected hidden>请选择数据集</option>
+                                    <option value="MNIST">MNIST</option>
+                                    <option value="CIFAR-10">CIFAR-10</option>
+                                </select>
+                            </div>
+                            
+                            <div class="startBtn">
+                                <button class="filebtn1" id="popK" onclick="upload()">数据评估</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 日志部分：目前考虑后端输出一个完整的json文件，然后前端用伪动态的形式进行滚动展示 -->
+                    <div
+                    style="width: 57%;height: 30%; position: relative; float: left; margin-left: .3%;margin-top: 1%;">
+                    <img src="../static/images/main_top_bottom.png"
+                        style="position: absolute;height: 100%; width: 100%;">
+                    <div class="main_top_echarts_con_title">日志</div>
+                    
+                </div>
+                    <!-- 异常数据检测部分：可视化展示后端异常数据检测输出的图片/热力图 -->
+                    <div
+                        style="width: 97.5%;height: 65%; position: relative; float: left; margin-left: 1.3%;margin-top: 0.1%;">
+                        <img src="../static/images/main_top_bottom.png"
+                            style="position: absolute;height: 100%; width: 100%;">
+                        <div class="main_top_echarts_con_title">异常数据检测</div>
+                        <div style="width: 98%;height: 90%;overflow: scroll;margin-left :1%">
+                            <div style="float: left;margin-top:.5%">
+                                <h4 style="margin-left: 12%;">错误标签样本热力图</h4>
+                                <img style="float: left;" src="../static/images/imageHP.png">
+                                <h5 style="float: right;">展示每种标签被误分类到另一种标签的数量。</h5>
+                            </div>
+                            <div style="float: right;margin-top:5%;margin-bottom:5%">
+                                <h4 style="margin-left: 8%;">错误标签用例修复展示</h4>
+                                <img style="width: 50%;" src="../static/images/image.png">
+                            </div>
+                           
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div style="width: 30%;height: 50%; position: relative;float: right;">
+                    <img src="../static/images/main_top_bottom.png"
+                        style="position: absolute;height: 100%; width: 100%;">
+                    <div class="main_top_echarts_con_title">数据完整性</div>
+                    <div id = 'rd' style="width: 99%;height:99%"></div>          
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/echarts.min.js"></script>
+<script type="text/javascript" src="../static/js/dataScoll.js"></script>
+<script type="text/javascript" src="../static/js/digitalScroll.js"></script>
+<script type="text/javascript" src="../static/js/jcarousellite.js"></script>
+<script type="text/javascript" src="../static/js/particles.min.js"></script>
+<script type="text/javascript" src="../static/js/app.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+<script>
+    var chartDom2 = document.getElementById('rd');
+var myChart2 = echarts.init(chartDom2);
+var option2;
+
+option2 = {
+  color: ['#67F9D8', '#FFE434', '#56A3F1', '#FF917C'],
+  title: {
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  radar: [
+    {
+      indicator: [
+        { text: '数据任务相关性', max: 100 },
+        { text: '数据均衡性', max: 100 },
+        { text: '数据正确性', max: 100 },
+        { text: '数据一致性', max: 100 },
+      ],
+      center: ['50%', '45%'],
+      radius: 100,
+      axisName: {
+        color: '#fff',
+        backgroundColor: '#666',
+        borderRadius: 3,
+        padding: [3, 5]
+      }
+    }
+  ],
+  series: [
+    {
+      type: 'radar',
+      tooltip: {
+        trigger: 'item'
+      },
+      data: [
+        {
+          value: [100, 73, 50,98],
+          name: 'Data D',
+          areaStyle: {
+            color: new echarts.graphic.RadialGradient(0.1, 0.6, 1, [
+              {
+                color: 'rgba(255, 145, 124, 0.1)',
+                offset: 0
+              },
+              {
+                color: 'rgba(255, 145, 124, 0.9)',
+                offset: 1
+              }
+            ])
+          }
+        }
+      ]
+    }
+  ]
+};
+
+option2 && myChart2.setOption(option2);
+
+</script>
+<script>
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
+    const data = genData(50);
+    option = {
+      title: {
+        text: '样本标签统计',
+        textStyle:{
+            color:'#FFF'
+        },
+        left: 'center',
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+      },
+      legend: {
+        textStyle:{
+            color:'#FFF'
+        },
+        type: 'scroll',
+        orient: 'vertical',
+        right: 10,
+        top: 20,
+        bottom: 20,
+        data: data.nameList
+      },
+      series: [
+        {
+          name: 'MNIST',
+          type: 'pie',
+          radius: '55%',
+          center: ['40%', '50%'],
+          data: data.seriesData,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    };
+    function genData(count) {
+      // prettier-ignore
+      const nameList = [
+            '异常','1','2','0','4','5','6','7','8','9','3'
+        ];
+      const legendData = [];
+      const seriesData = [];
+      for (var i = 0; i < 11; i++) {
+        
+        
+        legendData.push(name);
+        seriesData.push({
+          name: nameList[i],
+          value: Math.round(Math.random() * 60000)
+        });
+      }
+      return {
+        legendData: legendData,
+        seriesData: seriesData
+      };
+      
+    }
+    option && myChart.setOption(option);
+</script>
+
+<script>
+    //提交函数
+    
+    function upload() {
+        var net = $('#net_type option:selected').val();
+        var layer = $('#layer option:selected').val();
+        var interval = $('#interval option:selected').val();
+        data = {
+            net: net,
+            layer: layer,
+            interval: interval
+        }
+        $.ajax({
+            type: "POST",
+            cache: false,
+            data: data,
+            url: "/inject",
+            dataType: "json",
+            success: function (res) {
+                flag = true;
+                // $('#verify').html("验证完成")
+                // $('#btn').show()
+                console.log(res)
+                draw(res);
+                $("#responseTime").html(res.responseTime);
+                // showLogs(res.data.output_param)
+            },
+            error: function (jqXHR) {
+
+                $.getJSON("./inject.json", function (res) {
+                    draw(res);
+                })
+            }
+        });
+
+        // $.post("/fault_inject",
+        //     { net: net, layer: layer, interval: interval },
+        //     function (data) {
+        //         draw(data);
+        //     });
+    }
+
+    //延迟
+    function sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+        }
+    //画图
+
+    /*结果弹窗
+    $('#popResult').magnificPopup({
+        items: {
+            src: '#popResultDiv',
+            type: 'inline',
+            removalDelay: 300,
+            mainClass: 'mfp-fade'
+        },
+        callbacks: {
+            open: function () {
+            },
+            close: function () {
+            }
+        }
+    });
+    */
+    /*
+    $('#popK').magnificPopup({
+        items: {
+            src: '#popDiv',
+            type: 'inline',
+            removalDelay: 300,
+            mainClass: 'mfp-fade'
+        },
+        callbacks: {
+            open: function () {
+            },
+            close: function () {
+            }
+        }
+    });
+    */
+</script>
